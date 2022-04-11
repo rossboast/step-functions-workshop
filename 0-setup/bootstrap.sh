@@ -51,6 +51,12 @@ function upgrade_existing_packages() {
     unzip -q -o /tmp/awscliv2.zip -d /tmp/awscliv2
     sudo /tmp/awscliv2/aws/install --update
     
+    # we need to set this default param to enable JSON payload to be input to aws lambda invoke
+    cat <<EOT >> ~/.aws/config
+[default]
+cli_binary_format = raw-in-base64-out
+EOT
+
     _logger "[+] Updating NPM"
     npm install -g npm
 }
