@@ -52,6 +52,7 @@ function upgrade_existing_packages() {
     sudo /tmp/awscliv2/aws/install --update
     
     # we need to set this default param to enable JSON payload to be input to aws lambda invoke
+    rm -f ~/.aws/config
     cat <<EOT >> ~/.aws/config
 [default]
 cli_binary_format = raw-in-base64-out
@@ -63,9 +64,7 @@ EOT
 
 function install_utility_tools() {
     _logger "[+] Installing jq"
-    sudo yum install -y jq
-    _logger "[+] Installing wscat"
-    npm install -g wscat
+    sudo yum install -y jq    
 }
 
 function increase_c9_disk_size() {
