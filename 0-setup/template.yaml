@@ -79,7 +79,7 @@ Resources:
       Description: Coordinating Services with Step Functions Workspace
       InstanceType: t3.small
       ImageId: amazonlinux-2-x86_64
-      Name: !Ref AWS::StackName
+      Name: !Sub "sf-workshop-${AWS::StackName}"
       Repositories:
         - PathComponent: /service-coordination-step-functions
           RepositoryUrl: !Ref GitRepositoryURL
