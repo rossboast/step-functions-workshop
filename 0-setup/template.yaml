@@ -13,6 +13,18 @@ Parameters:
     Description: The Git repository URL for the project we are cloning
     Type: String
     Default: https://github.com/rossboast/step-functions-workshop.git
+  EnvType:
+    Description: Whether or not this template is running on an EE or user account environment.
+    Default: ee
+    Type: String
+    AllowedValues:
+      - ee
+      - user
+
+Conditions:
+  ApplyEEChanges: !Equals
+      - !Ref EnvType
+      - ee
 
 Resources:
   VPC:
@@ -84,7 +96,12 @@ Resources:
         - PathComponent: /service-coordination-step-functions
           RepositoryUrl: !Ref GitRepositoryURL
       SubnetId: !Ref PublicSubnet1
-#      OwnerArn: !Sub "arn:aws:sts::${AWS::AccountId}:assumed-role/TeamRole/MasterKey"
+      OwnerArn:
+        !If
+        - ApplyEEChanges
+        - 
+          !Sub "arn:aws:sts::${AWS::AccountId}:assumed-role/TeamRole/MasterKey"
+        - !Ref "AWS::NoValue"
 
 Outputs:
   Cloud9DevEnvUrl:
