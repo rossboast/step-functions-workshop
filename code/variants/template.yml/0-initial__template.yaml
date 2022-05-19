@@ -2,14 +2,17 @@ AWSTemplateFormatVersion: "2010-09-09"
 Transform: AWS::Serverless-2016-10-31
 Description: Template for step-functions-workshop
 
+Globals:
+  Function:
+    Runtime: nodejs16.x
+
 Resources:
   ApproveApplicationFunction:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: sfn-workshop-ApproveApplication
       CodeUri: functions/account-applications/
-      Handler: approve.handler
-      Runtime: nodejs12.x
+      Handler: approve.handler      
       Environment:
         Variables:
           APPLICATIONS_TABLE_NAME: !Ref ApplicationsTable
@@ -22,16 +25,14 @@ Resources:
     Properties:
       FunctionName: sfn-workshop-DataChecking
       CodeUri: functions/data-checking/
-      Handler: data-checking.handler
-      Runtime: nodejs12.x
+      Handler: data-checking.handler      
 
   FindApplicationsFunction:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: sfn-workshop-FindApplications
       CodeUri: functions/account-applications/
-      Handler: find.handler
-      Runtime: nodejs12.x
+      Handler: find.handler      
       Environment:
         Variables:
           APPLICATIONS_TABLE_NAME: !Ref ApplicationsTable
@@ -44,8 +45,7 @@ Resources:
     Properties:
       FunctionName: sfn-workshop-FlagApplication
       CodeUri: functions/account-applications/
-      Handler: flag.handler
-      Runtime: nodejs12.x
+      Handler: flag.handler      
       Environment:
         Variables:
           APPLICATIONS_TABLE_NAME: !Ref ApplicationsTable
@@ -58,8 +58,7 @@ Resources:
     Properties:
       FunctionName: sfn-workshop-RejectApplication
       CodeUri: functions/account-applications/
-      Handler: reject.handler
-      Runtime: nodejs12.x
+      Handler: reject.handler      
       Environment:
         Variables:
           APPLICATIONS_TABLE_NAME: !Ref ApplicationsTable
@@ -72,8 +71,7 @@ Resources:
     Properties:
       FunctionName: sfn-workshop-SubmitApplication
       CodeUri: functions/account-applications/
-      Handler: submit.handler
-      Runtime: nodejs12.x
+      Handler: submit.handler      
       Environment:
         Variables:
           APPLICATIONS_TABLE_NAME: !Ref ApplicationsTable
