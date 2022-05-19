@@ -1,4 +1,4 @@
-const uuid = require('uuid/v4')
+const { v4: uuidv4 } = require('uuid');
 
 class AccountApplications {
     constructor(tableName, dynamoDocClient) {
@@ -8,7 +8,7 @@ class AccountApplications {
 
     async create(attributes) {
         const applicationKey = id => `application_${id}`
-        const id = uuid()
+        const id = uuidv4();
         const application = Object.assign(attributes, { id: applicationKey(id) })
         let params = {
             TableName: this.tableName,
